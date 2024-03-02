@@ -70,21 +70,23 @@ ob_end_flush();
                             <?= $product["unidades"] ?>
                         </td>
                         <td>
-                            <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                                <input type="hidden" name="idCarrito" value="<?= $product['idCarrito']; ?>">
-                                <input type="hidden" name="unidades" value="<?= $product['unidades']; ?>">
-                                <button class="btn-cart btn-add bx-border" type="submit" name="add_product_unit">
-                                    <i class='bx bx-plus bx-sm'></i>
-                                </button>
-                            </form>
+                            <div class="cart-form-container">
+                                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                    <input type="hidden" name="idCarrito" value="<?= $product['idCarrito']; ?>">
+                                    <input type="hidden" name="unidades" value="<?= $product['unidades']; ?>">
+                                    <button class="btn-cart btn-add bx-border" type="submit" name="add_product_unit">
+                                        <i class='bx bx-plus bx-sm'></i>
+                                    </button>
+                                </form>
 
-                            <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                                <input type="hidden" name="idCarrito" value="<?= $product['idCarrito']; ?>">
-                                <input type="hidden" name="unidades" value="<?= $product['unidades']; ?>">
-                                <button class="btn-cart btn-less bx-border" type="submit" name="delete_product_unit">
-                                    <i class='bx bx-minus bx-sm'></i>
-                                </button>
-                            </form>
+                                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                    <input type="hidden" name="idCarrito" value="<?= $product['idCarrito']; ?>">
+                                    <input type="hidden" name="unidades" value="<?= $product['unidades']; ?>">
+                                    <button class="btn-cart btn-less bx-border" type="submit" name="delete_product_unit">
+                                        <i class='bx bx-minus bx-sm'></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                         <td>
                             <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">

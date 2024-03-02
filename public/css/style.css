@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 :root {
-  /* TODO intentar implementar un tema oscuro */
-  /* colores tema claro */
   --principal: #2ec4b6;
   --secundario: #cbf3f0;
   --background: #fff;
@@ -59,79 +57,55 @@ aside {
 .header {
   background: var(--background);
   display: flex;
-  flex-flow: row wrap;
-  font-weight: bold;
-  font-size: 1.5rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1rem;
 }
 
 .logo a {
   color: var(--principal);
+  font-size: 2rem;
 }
 
 .logo a:hover {
   color: #000;
 }
 
-.searchBar {
-  flex-grow: 2;
-  align-self: center;
-}
-
-.searchBar input {
-  border: 2px solid var(--secundario);
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  width: 90%;
-}
-
-.searchBar input:focus {
-  outline: 0;
-  border-color: var(--principal);
-}
-
-.search-btn {
-  background-color: var(--principal);
-  color: #000;
-  border: 1px solid var(--secundario);
-  border-radius: 4px;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.search-btn i:hover {
-  color: var(--secundario);
-}
-
-.userLogged {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-}
-
-.userLinks ul {
+.header ul {
   display: flex;
-  flex-flow: row wrap;
   list-style: none;
+  align-content: center;
 }
 
 .userLinks li {
   align-content: center;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .userLinks a {
   color: #000;
   background-color: var(--principal);
-  font-size: 1rem;
   border-radius: 25px;
   padding: 0.5rem 1rem;
 }
 
-.userLinksMenu a:hover {
+.userLinks a:hover {
   color: var(--secundario);
 }
 
-/* ------------ */
+.userLinks i {
+  font-size: 1.5rem;
+}
+
+.userLogged i {
+  color: var(--principal);
+}
+
+/* ------MAIN (index.php)------ */
 .main {
   text-align: left;
   background: var(--background-contrast);
@@ -181,21 +155,6 @@ aside {
 .next-btn:hover {
   background-color: var(--hover);
   color: #333;
-}
-
-/*GALERIA*/
-.gallery-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.gallery img {
-  max-width: 12rem;
-  height: auto;
-  margin: 5px;
-  cursor: pointer;
 }
 
 /* FORMULARIOS */
@@ -279,27 +238,8 @@ aside {
   color: var(--success-color);
 }
 
-/* PRODUCTOS MENU PARA LOS FILTROS */
-.product-filter {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem;
-  background-color: #fff;
-}
-
-.sort-products label,
-select {
-  margin-left: 0.5rem;
-}
-
-.sort-products select {
-  align-self: flex-end;
-}
-
-/* GALERIA CON LOS PRODUCTOS */
-/*Para las paginas index y  products*/
+/*----PRODUCTOS----*/
+/* GALERIA CON LOS PRODUCTOS ,para las paginas index y products */
 .products {
   display: flex;
   flex-flow: row wrap;
@@ -358,7 +298,7 @@ dd {
   background-color: var(--hover);
 }
 
-/* ------------ */
+/* ------MENU CON LAS CATERGORIAS Y SUBCATEGORIAS------ */
 .aside-1 {
   background: var(--background-contrast);
 }
@@ -376,7 +316,6 @@ dd {
   width: 100%;
 }
 
-/* CSS for dropdown menu */
 .dropdown-btn {
   background-color: var(--principal);
   color: #000;
@@ -392,7 +331,7 @@ dd {
   display: none;
   position: absolute;
   top: 100%;
-  width: inherit; /* Set width to auto to match the width of dropdown-btn */
+  width: inherit;
   background-color: var(--background);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -431,7 +370,7 @@ dd {
   max-width: 20rem;
 }
 
-/*---CARRITO---*/
+/*----TABLAS----*/
 .table-container {
   display: flex;
   justify-content: center;
@@ -491,6 +430,7 @@ td {
   color: #fff;
 }
 
+/*----CARRITO----*/
 .total-amount {
   font-weight: bold;
 }
@@ -510,47 +450,17 @@ td {
   background-color: #5bd6ff;
 }
 
-/* ------------ */
-.footer {
-  background: var(--principal);
-  display: flex;
-  flex-flow: column wrap;
-}
-
-.footerTop,
-.socialMedia {
+.cart-form-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 }
 
-.footerList ul {
-  list-style: none;
-  margin: 1rem;
-  color: var(--background);
+.cart-form-container form {
+  padding-left: 0.5rem;
 }
 
-.footerList a {
-  text-decoration: none;
-}
-
-.footerContact,
-.footerInfo {
-  border-right: 2px solid #fff;
-}
-
-.socialMedia i {
-  font-size: 2.5rem;
-  color: var(--background);
-}
-
-.footerBottom {
-  background-color: var(--background);
-  /* width: 100%; */
-  height: 3rem;
-}
-
-/* Zona para administradores */
+/* -----ADMINS----- */
 .admin-container {
   display: flex;
   flex-flow: row wrap;
@@ -609,6 +519,45 @@ td {
 .form-admin img {
   height: 12rem;
   width: 12rem;
+}
+
+/* -----FOOTER------- */
+.footer {
+  background: var(--principal);
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.footerTop,
+.socialMedia {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.footerList ul {
+  list-style: none;
+  margin: 1rem;
+  color: var(--background);
+}
+
+.footerList a {
+  text-decoration: none;
+}
+
+.footerContact,
+.footerInfo {
+  border-right: 2px solid #fff;
+}
+
+.socialMedia i {
+  font-size: 2.5rem;
+  color: var(--background);
+}
+
+.footerBottom {
+  background-color: var(--background);
+  height: 3rem;
 }
 
 @media all and (min-width: 600px) {

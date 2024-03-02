@@ -8,13 +8,13 @@ include "./includes/header.php";
         <div class="carousel-container">
             <div class="carousel">
                 <div class="carousel-item">
-                    <a href="#"><img src="public/img/resources/banner_1.jpg" alt="Image 1"></a>
+                    <a href="product_details.php?productId=13"><img src="public/img/resources/banner_1.jpg" alt="imangen con producto destacado"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href=""><img src="public/img/resources/banner_2.jpg" alt="Image 2"></a>
+                    <a href="product_details.php?productId=3"><img src="public/img/resources/banner_2.jpg" alt="imangen con producto destacado"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href=""><img src="public/img/resources/banner_3.jpg" alt="Image 3"></a>
+                    <a href="product_details.php?productId=27"><img src="public/img/resources/banner_3.jpg" alt="imangen con producto destacado"></a>
                 </div>
             </div>
             <div class="carousel-buttons">

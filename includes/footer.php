@@ -3,20 +3,20 @@
         <div class="footerList footerContact">
             <h4>INFORMACION</h4>
             <ul>
-                <li><a href="">elemento 1</a></li>
-                <li><a href="">elemento 2</a></li>
-                <li><a href="">elemento 3</a></li>
-                <li><a href="">elemento 4</a></li>
+                <li><a href="#">elemento 1</a></li>
+                <li><a href="#">elemento 2</a></li>
+                <li><a href="#">elemento 3</a></li>
+                <li><a href="#">elemento 4</a></li>
             </ul>
         </div>
 
         <div class="footerList footerInfo">
             <h4>MI CUENTA</h4>
             <ul>
-                <li><a href="">elemento 1</a></li>
-                <li><a href="">elemento 2</a></li>
-                <li><a href="">elemento 3</a></li>
-                <li><a href="">elemento 4</a></li>
+                <li><a href="#">elemento 1</a></li>
+                <li><a href="#">elemento 2</a></li>
+                <li><a href="#">elemento 3</a></li>
+                <li><a href="#">elemento 4</a></li>
             </ul>
         </div>
 
