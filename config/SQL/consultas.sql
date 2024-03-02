@@ -32,8 +32,6 @@ WHERE Productos.idProducto = 2;
 
 SELECT * FROM Productos WHERE idCategoria = 1 AND idSubCategoria = 1;
 
-
-
 SELECT PP.*, P.fecha 
 FROM PedidosProductos AS PP 
 JOIN Pedidos AS P ON PP.idPedido = P.idPedido

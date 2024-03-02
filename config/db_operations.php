@@ -388,6 +388,26 @@ function delete_product($product_id)
     $stmt->execute();
 }
 
+function load_product_details($idProd)
+{
+    // Conexión a la base de datos
+    $connection = obtain_connection();
+
+    $sql = "SELECT * FROM Detalles WHERE idProducto = :idProducto";
+
+    $stmt = $connection->prepare($sql);
+    $stmt->bindParam(":idProducto", $idProd);
+    $stmt->execute();
+
+    $productDetails = $stmt->fetchAll();
+
+    if (!$productDetails) {
+        return false;
+    }
+
+    return $productDetails;
+}
+
 // Funciones para el carrito
 
 function insert_product_cart($product_id, $user_id, $product_name, $product_price, $product_units)

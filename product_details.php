@@ -62,7 +62,11 @@ ob_end_flush();
         <div class="product-deatils">
             <dl>
                 <dt>Fabricante</dt>
-                <dd>safsa</dd>
+                <dd></dd>
+                <dt>Dimensiones</dt>
+                <dd></dd>
+                <dt>Material</dt>
+                <dd></dd>
             </dl>
         </div>
     </div>

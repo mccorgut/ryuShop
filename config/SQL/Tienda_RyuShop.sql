@@ -64,6 +64,16 @@ CREATE TABLE Productos (
     FOREIGN KEY (idSubCategoria) REFERENCES SubCategorias (idSubCategoria)
 );
 
+CREATE TABLE Detalles (
+    idDetalleProd INT AUTO_INCREMENT,
+    frabricante VARCHAR(100) DEFAULT 'Sin datos',
+    dimensiones VARCHAR(100) DEFAULT 'Sin datos',
+    material VARCHAR(100) DEFAULT 'Sin datos',
+    idProducto INT NOT NULL,
+    PRIMARY KEY (idDetalleProd),
+    FOREIGN KEY (idProducto) REFERENCES Productos (idProducto)
+);
+
 -- TODO Una vez se realiza el pedido el contenido se esta tabla se transfiere a la tabla pedidos
 -- Y se vacia su contenido
 CREATE TABLE Carritos (
