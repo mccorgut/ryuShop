@@ -350,6 +350,15 @@ function insert_product($product_name, $description, $product_price, $image, $st
     // Ejecuta la consulta
     $stmt->execute();
 
+    $product_id = $connection->lastInsertId();
+
+    $sql = "INSERT INTO Detalles (idProducto)
+    VALUES (:idProducto)";
+    $stmt = $connection->prepare($sql);
+    $stmt->bindParam(":idProducto", $product_id);
+
+    $stmt->execute();
+
     // Return true on success or false on failure
     return $stmt->rowCount() > 0 ? true : false;
 }

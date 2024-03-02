@@ -70,8 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="descripcion">Descripcion</label>
             <textarea name="descripcion" id="descripcion" rows="3"></textarea>
 
+            <!-- step="0.01" para poder añadir decimales -->
             <label for="precio">Precio</label>
-            <input type="number" name="precio" id="precio" required>
+            <input type="number" name="precio" id="precio" placeholder="1.00" step="0.01" required>
 
             <label for="imgProducto">Imagen</label>
             <!-- accept="image/*" para que acepte solo archivos imagen -->
