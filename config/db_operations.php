@@ -312,6 +312,26 @@ function load_product_data($product_id)
     return $products;
 }
 
+function load_product_details($product_id)
+{
+    // Conexión a la base de datos
+    $connection = obtain_connection();
+
+    $sql = "SELECT * FROM Detalles WHERE idProducto = :idProducto";
+
+    $stmt = $connection->prepare($sql);
+    $stmt->bindParam(":idProducto", $product_id);
+    $stmt->execute();
+
+    $productDetails = $stmt->fetch();
+
+    if (!$productDetails) {
+        return false;
+    }
+
+    return $productDetails;
+}
+
 // Función para insertar un nuevo producto en la tabla Productos
 function insert_product($product_name, $description, $product_price, $image, $stock, $cat_id, $sub_cat_id)
 {
@@ -368,6 +388,11 @@ function modify_product($product_name, $description, $product_price, $image, $st
             $stmt->bindParam(":idProducto", $product_id);
         }
 
+        $sql = "INSERT INTO Detalles (idProducto)
+        VALUES (:idProducto)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bindParam(":idProducto", $product_id);
+
         $stmt->execute();
 
         return $stmt->rowCount() > 0 ? true : false;
@@ -388,25 +413,6 @@ function delete_product($product_id)
     $stmt->execute();
 }
 
-function load_product_details($idProd)
-{
-    // Conexión a la base de datos
-    $connection = obtain_connection();
-
-    $sql = "SELECT * FROM Detalles WHERE idProducto = :idProducto";
-
-    $stmt = $connection->prepare($sql);
-    $stmt->bindParam(":idProducto", $idProd);
-    $stmt->execute();
-
-    $productDetails = $stmt->fetchAll();
-
-    if (!$productDetails) {
-        return false;
-    }
-
-    return $productDetails;
-}
 
 // Funciones para el carrito
 

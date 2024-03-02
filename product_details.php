@@ -9,6 +9,7 @@ $error_message = false;
 
 $product_id = $_GET["productId"];
 $product = load_product_data($product_id);
+$product_details = load_product_details($product_id);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product"])) {
     // Verificar si el usuario ha iniciado sesión
@@ -62,11 +63,11 @@ ob_end_flush();
         <div class="product-deatils">
             <dl>
                 <dt>Fabricante</dt>
-                <dd></dd>
+                <dd><?= $product_details["frabricante"]; ?></dd>
                 <dt>Dimensiones</dt>
-                <dd></dd>
+                <dd><?= $product_details["dimensiones"]; ?></dd>
                 <dt>Material</dt>
-                <dd></dd>
+                <dd><?= $product_details["material"]; ?></dd>
             </dl>
         </div>
     </div>
