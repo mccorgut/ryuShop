@@ -257,7 +257,9 @@ aside {
 }
 
 .product-image img {
-  max-width: 12rem;
+  width: auto;
+  height: 100%;
+  max-height: 20vh;
 }
 
 .product-card {
@@ -279,7 +281,9 @@ aside {
 }
 
 .product-item img {
-  width: 30rem;
+  width: auto;
+  height: 100%;
+  max-height: 50vh;
 }
 .stock {
   font-weight: bold;

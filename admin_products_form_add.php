@@ -12,19 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cat_id = $_POST["categoriaId"];
     $sub_cat_id = $_POST["subcategoriaId"];
 
-    $directorio_subida = ".public/img/productsIMG/";
+    $directorio_subida = "public/img/productsIMG/";
     $max_file_size = 5120000; // 5 megabytes
     $extensiones_validas = array("jpg", "png");
 
     if (isset($_FILES["imgProducto"])) {
-        $errores = 0;
         $nombre_archivo = $_FILES["imgProducto"]["name"];
-        $file_size = $_FILES["imgProducto"]["size"];
         $directorio_temporal = $_FILES["imgProducto"]["tmp_name"];
-        $tipo_archivo = $_FILES["imgProducto"]["type"];
+        //$tipo_archivo = $_FILES["imgProducto"]["type"];
 
         $array_archivo = pathinfo($nombre_archivo);
-        $extension = $array_archivo["extension"];
+        $extension = strtolower($array_archivo["extension"]);
 
         // TODO Modificar para incluir todo esto en el mismo archivo de admin_products_form_add.php
         if (!in_array($extension, $extensiones_validas)) {
@@ -32,16 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit; // Salir del script si la extensión no es válida
         }
 
+        $file_size = $_FILES["imgProducto"]["size"];
         if ($file_size > $max_file_size) {
             echo "La imagen es demasiado grande. Debe ser de un máximo de 5 MB";
             exit; // Salir del script si la imagen es demasiado grande
         }
 
-        // Si no hay errores se sube el archivo
-        if ($errores == 0) {
-            $ruta_completa = $directorio_subida . $nombre_archivo;
-            // Mueve el archivo del directorio temporal al directorio de subida con el nombre del archivo
-            move_uploaded_file($directorio_temporal, $ruta_completa);
+        // Generamos un nombre único para el archivo
+        $nombre_archivo_final = uniqid() . "." . $extension;
+
+        // Movemos el archivo al directorio de destino
+        if (move_uploaded_file($directorio_temporal, $directorio_subida . $nombre_archivo_final)) {
+            $ruta_completa = $directorio_subida . $nombre_archivo_final;
         } else {
             echo "Error al mover el archivo al directorio de destino";
             exit; // Salir del script si hay un error al mover el archivo
@@ -81,10 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="stock">Stock</label>
             <input type="number" name="stock" id="stock" required>
 
-            <label for="stock">Id de la categoria</label>
+            <label for="categoriaId">Id de la categoria</label>
             <input type="number" name="categoriaId" id="categoriaId" required>
 
-            <label for="stock">Id de la subcategoria</label>
+            <label for="subcategoriaId">Id de la subcategoria</label>
             <input type="number" name="subcategoriaId" id="subcategoriaId" required>
 
             <button class="btn btn-register" type="submit">Añadir producto</button>
