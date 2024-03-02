@@ -13,8 +13,7 @@ if (isset($_SESSION["idUsuario"])) {
 
 ?>
 <article class="main">
-    <h2>Pedido</h2>
-    <hr>
+    <h2 class="info">Información del pedido</h2>
     <section>
         <div class="table-container">
             <table class="table cart-table">
@@ -41,11 +40,11 @@ if (isset($_SESSION["idUsuario"])) {
                             <?= $product["unidades"] ?>
                         </td>
                         <td>
-                            <?= $product["fecha"] ?> €
+                            <?= $product["fecha"] ?>
                         </td>
                         <td>
                             <?php if ($product["enviado"] == 0) : ?>
-                                Pedido no enviado
+                                Pedido pendiente de envio
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -59,8 +58,9 @@ if (isset($_SESSION["idUsuario"])) {
                     </td>
                 </tr>
             </table>
-            <p>Su pedido ha sido registrado con exito, revise el correo con la informacion</p>
         </div>
+        <hr>
+        <p class="message">Su pedido ha sido registrado con éxito, revise su correo con la información del pedido</p>
     </section>
 
 </article>

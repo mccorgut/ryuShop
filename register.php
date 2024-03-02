@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once "./config/db_operations.php";
 
 // Define una variable para indicar si ha ocurrido un error
@@ -26,9 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $success_message = true;
     }
 }
-?>
 
-<?php include "./includes/header.php"; ?>
+include "./includes/header.php";
+ob_end_flush();
+?>
 
 <article class="main">
     <div class="form-container">

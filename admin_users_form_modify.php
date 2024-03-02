@@ -55,9 +55,8 @@ ob_end_flush();
 ?>
 
 <article class="main">
-    <!-- TODO mirar que le pasa al css -->
-    <div class="form-container">
-        <h2>Modifocar datos de usuario</h2>
+    <div class="form-container form-admin">
+        <h2>Modificar datos de usuario</h2>
         <hr>
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="register-form form">
             <label for="idUsuario">Id Usuario</label>
@@ -104,6 +103,7 @@ ob_end_flush();
     </section>
 </article>
 
-<?php include "./includes/sidenavIzq.php"; ?>
-<?php include "./includes/sidenavDer.php"; ?>
-<?php include "./includes/footer.php"; ?>
+
+</body>
+
+</html>

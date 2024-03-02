@@ -77,7 +77,7 @@ ob_end_flush();
 
         <h2><?= $product["nombreProd"]; ?></h2>
         <h4><?= $product["precioProd"]; ?>€</h4>
-        <small>Unidades en stock <?= $product["stock"]; ?></small>
+        <p>Unidades en stock <span class="stock"><?= $product["stock"]; ?></span></p>
 
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <input type="hidden" name="productId" value="<?= $product["idProducto"]; ?>">

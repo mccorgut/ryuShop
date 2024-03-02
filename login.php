@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button class="btn btn-login" type="submit">Acceder</button>
         </form>
         <hr>
-        <p>Si no tienes cuenta aún.</p>
+        <p class="account">Si no tienes cuenta aún.</p>
         <!-- Formulario para crear una cuenta -->
         <form action="register.php" class="login-form form">
             <button class="btn btn-login" type="submit">Crear cuenta</button>

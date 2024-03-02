@@ -8,8 +8,8 @@ include "includes/header.php";
         <?php
         // Verifica si el formulario ha sido enviado y si las variables de sesión están configuradas
         if (isset($_SESSION["admin"]) && isset($_SESSION["user_role"])) {
-            var_dump($_SESSION["admin"]);
-            var_dump($_SESSION["user_role"]);
+            //  var_dump($_SESSION["admin"]);
+            // var_dump($_SESSION["user_role"]);
             // Se ha iniciado sesión, muestra las opciones del administrador según el rol
             if ($_SESSION['user_role'] === 'super_admin') {
         ?>
@@ -42,10 +42,6 @@ include "includes/header.php";
 
     </section>
 </article>
+</body>
 
-<?php
-// Incluye la barra lateral izquierda y derecha, y el pie de página
-include "includes/sidenavIzq.php";
-include "includes/sidenavDer.php";
-include "includes/footer.php";
-?>
+</html>

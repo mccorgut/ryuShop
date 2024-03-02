@@ -161,6 +161,7 @@ aside {
 .form-container {
   background-color: #fff;
   width: 80%;
+  margin: 2rem;
 }
 
 .form-container h2 {
@@ -228,6 +229,7 @@ aside {
   font-weight: 800;
   padding: 10px;
   margin: 5px;
+  text-align: center;
 }
 
 .error {
@@ -237,7 +239,12 @@ aside {
 .success {
   color: var(--success-color);
 }
-
+.account {
+  text-align: center;
+}
+.form-admin {
+  width: 50%;
+}
 /*----PRODUCTOS----*/
 /* GALERIA CON LOS PRODUCTOS ,para las paginas index y products */
 .products {
@@ -264,6 +271,7 @@ aside {
   flex-flow: column wrap;
   padding: 1rem;
   background-color: #fff;
+  margin: 2rem;
 }
 
 .product-item-container ul {
@@ -272,6 +280,10 @@ aside {
 
 .product-item img {
   width: 30rem;
+}
+.stock {
+  font-weight: bold;
+  color: var(--error-color);
 }
 
 dt {
@@ -285,6 +297,24 @@ dd {
 
 dd {
   margin-bottom: 1em;
+}
+
+.product-filter {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.sort-products label,
+select {
+  margin-left: 0.5rem;
+}
+
+.sort-products select {
+  align-self: flex-end;
 }
 
 .add-cart {
@@ -460,6 +490,10 @@ td {
   padding-left: 0.5rem;
 }
 
+.info {
+  margin-top: 2rem;
+}
+
 /* -----ADMINS----- */
 .admin-container {
   display: flex;
@@ -516,9 +550,8 @@ td {
   justify-content: center;
 }
 
-.form-admin img {
+.img-container img {
   height: 12rem;
-  width: 12rem;
 }
 
 /* -----FOOTER------- */

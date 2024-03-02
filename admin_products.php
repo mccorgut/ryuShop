@@ -100,4 +100,6 @@ $products = load_all_products_data();
     </section>
 </article>
 
-<?php include "./includes/footer.php"; ?>
+</body>
+
+</html>

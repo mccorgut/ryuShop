@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <article class="main">
-    <div class="form-container">
+    <div class="form-container form-admin">
         <h2>Añadir producto</h2>
         <hr>
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data" class="register-form form">
@@ -106,6 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
 </article>
 
-<?php include "./includes/sidenavIzq.php"; ?>
-<?php include "./includes/sidenavDer.php"; ?>
-<?php include "./includes/footer.php"; ?>
+</body>
+
+</html>

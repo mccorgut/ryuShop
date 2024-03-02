@@ -43,7 +43,7 @@ ob_end_flush();
 ?>
 
 <article class="main">
-    <section class="form-container">
+    <section class="form-container form-admin">
         <h2>Iniciar sesión</h2>
         <hr>
         <!-- Formulario de inicio de sesión -->
@@ -63,13 +63,6 @@ ob_end_flush();
     </section>
 </article>
 
+</body>
 
-
-<?php
-// Incluye los archivos de la barra lateral izquierda y derecha
-include "./includes/sidenavIzq.php";
-include "./includes/sidenavDer.php";
-
-// Incluye el archivo de pie de página
-include "./includes/footer.php";
-?>
+</html>

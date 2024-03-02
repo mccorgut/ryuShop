@@ -11,10 +11,10 @@ $product = load_product_data($modify_product);
 
 <article class="main">
     <!-- TODO mirar que le pasa al css -->
-    <div class="form-container">
-        <h2>Modificar datos de producto</h2>
+    <div class="form-container form-admin">
+        <h2>Modificar datos del producto</h2>
         <hr>
-        <form action="admin_modify_product.php?modifiedProdId=<?= $modify_product; ?>&nombre_imagen=<?= htmlspecialchars($product['imgProducto']); ?>" method="POST" enctype="multipart/form-data" class="register-form form-admin form">
+        <form action="admin_modify_product.php?modifiedProdId=<?= $modify_product; ?>&nombre_imagen=<?= htmlspecialchars($product['imgProducto']); ?>" method="POST" enctype="multipart/form-data" class="register-form form">
             <label for="productId">Id de Producto</label>
             <input type="number" name="productId" id="productId" value="<?= htmlspecialchars($product['idProducto']); ?>">
 
@@ -57,6 +57,6 @@ $product = load_product_data($modify_product);
     </section>
 </article>
 
-<?php include "./includes/sidenavIzq.php"; ?>
-<?php include "./includes/sidenavDer.php"; ?>
-<?php include "./includes/footer.php"; ?>
+</body>
+
+</html>

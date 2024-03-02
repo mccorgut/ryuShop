@@ -22,7 +22,7 @@ $users = load_all_users_data();
     <section>
         <!-- Tabla que muestra los usuarios registrados en la BD -->
         <div class="table-container">
-            <table class="table cart-table">
+            <table class="table">
                 <tr>
                     <th>Id</th>
                     <th>Email</th>
@@ -102,4 +102,6 @@ $users = load_all_users_data();
     </section>
 </article>
 
-<?php include "./includes/footer.php"; ?>
+</body>
+
+</html>
