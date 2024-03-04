@@ -7,7 +7,7 @@ include "./includes/header.php";
 // Verificar si se ha enviado una solicitud de eliminación
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
     // Verificar si se proporcionó un ID de producto válido
-    if (isset($_POST["id"]) && is_numeric($_POST["id"])) {
+    if (isset($_POST["id"])) {
         $user_id = $_POST["id"];
         delete_user($user_id);
     }

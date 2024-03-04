@@ -8,7 +8,7 @@ if (isset($_SESSION["idUsuario"])) {
     $user_id = $_SESSION["idUsuario"];
     $last_order_data = load_last_order_data($user_id);
 
-    // echo "<pre>" . print_r($last_order_data, 1) . "</pre>";
+    echo "<pre>" . print_r($last_order_data, 1) . "</pre>";
 }
 
 ?>

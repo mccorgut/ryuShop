@@ -1,7 +1,7 @@
 <?php include "./includes/header.php";
 require_once "./config/db_operations.php";
 
-$err = false;
+$error_message = false;
 $success_message = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product = insert_product($nombre, $descripcion, $precio, $ruta_completa, $stock, $cat_id, $sub_cat_id);
 
     if ($product == false) {
-        $err = true;
+        $error_message = true;
     } else {
         $success_message = true;
     }
@@ -93,6 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <?php if ($success_message) : ?>
             <p class="message success">Producto añadido correctamente!</p>
+        <?php endif; ?>
+
+
+        <?php if ($error_message) : ?>
+            <p class="message error">Problema con el registro del producto!</p>
         <?php endif; ?>
     </div>
 

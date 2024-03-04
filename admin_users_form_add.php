@@ -3,7 +3,7 @@ include "./includes/header.php";
 require_once "./config/db_operations.php";
 
 // Define una variable para indicar si ha ocurrido un error
-$err = false;
+$error_message = false;
 $success_message = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica si la inserción fue exitosa
     if ($idUsuario == false) {
         // Si no se pudo insertar el usuario, establece la variable de error a true
-        $err = true;
+        $error_message = true;
     } else {
         $success_message = true;
     }
@@ -67,6 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Mostrar mensaje de éxito si $success_message está definido -->
         <?php if ($success_message) : ?>
             <p class="message success">Usuario registrado correctamente!</p>
+        <?php endif; ?>
+
+        <?php if ($error_message) : ?>
+            <p class="message error">Problema con el registro de usuario!</p>
         <?php endif; ?>
     </div>
 

@@ -14,7 +14,7 @@ $product = load_product_data($modify_product);
     <div class="form-container form-admin">
         <h2>Modificar datos del producto</h2>
         <hr>
-        <form action="admin_modify_product.php?modifiedProdId=<?= $modify_product; ?>&nombre_imagen=<?= htmlspecialchars($product['imgProducto']); ?>" method="POST" enctype="multipart/form-data" class="register-form form">
+        <form action="admin_product_modify.php?modifiedProdId=<?= $modify_product; ?>&nombre_imagen=<?= htmlspecialchars($product['imgProducto']); ?>" method="POST" enctype="multipart/form-data" class="register-form form">
             <label for="productId">Id de Producto</label>
             <input type="number" name="productId" id="productId" value="<?= htmlspecialchars($product['idProducto']); ?>">
 

@@ -3,7 +3,7 @@ ob_start();
 require_once "./config/db_operations.php";
 
 // Define una variable para indicar si ha ocurrido un error
-$error = false;
+$error_message = false;
 $success_message = false;
 
 // TODO no existe nombreUsu en la BD
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica si la inserción fue exitosa
     if ($idUsuario == false) {
         // Si no se pudo insertar el usuario, establece la variable de error a true
-        $error = true;
+        $error_message = true;
     } else {
         $success_message = true;
     }
@@ -62,17 +62,16 @@ ob_end_flush();
 
             <label for="direccion">Dirección</label>
             <textarea name="direccion" id="direccion" rows="3"></textarea>
-            <!-- Mostrar mensaje de error si $err es true -->
-            <?php if ($error) : ?>
-                <p class="message error">Error al registrar el usuario. Por favor, inténtalo de nuevo.</p>
-            <?php endif; ?>
 
             <button class="btn btn-register" type="submit">Crear cuenta</button>
         </form>
 
-        <!-- Mostrar mensaje de éxito si $success_message está definido -->
         <?php if ($success_message) : ?>
             <p class="message success">Usuario registrado correctamente!</p>
+        <?php endif; ?>
+
+        <?php if ($error_message) : ?>
+            <p class="message error">Problema con el registro de usuario!</p>
         <?php endif; ?>
     </div>
 </article>

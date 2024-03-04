@@ -6,8 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 function create_mail_content($order_data, $user_id, $user_email)
 {
-    $text = "<h1>Pedido nº : </h1> 
-    <h2>Usuario: {$user_email} </h2>";
+    $text = "<h2>Usuario: {$user_email} </h2>";
     $text .= "<style>
     table, td, th {
         border: 1px solid #000;

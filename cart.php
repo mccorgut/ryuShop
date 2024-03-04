@@ -3,9 +3,9 @@ ob_start();
 include "./includes/header.php";
 require_once "./config/db_operations.php";
 
-// Verificar si se ha enviado una solicitud de eliminación
+// Verifica si se ha enviado una solicitud de eliminación
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product"])) {
-    // Verificar si se proporcionó un ID de producto válido
+    // Verifica si se proporcionó una ID de producto 
     if (isset($_POST["idCarrito"])) {
         $cart_id = $_POST["idCarrito"];
         delete_product_cart($cart_id);
@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product_unit"])) {
-    // Verificar si se proporcionó un ID de producto válido
     if (isset($_POST["idCarrito"]) && isset($_POST["unidades"])) {
         $cart_id = $_POST["idCarrito"];
         $product_units = $_POST["unidades"];
@@ -22,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product_unit"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product_unit"])) {
-    // Verificar si se proporcionó un ID de producto válido
     if (isset($_POST["idCarrito"]) && isset($_POST["unidades"])) {
         $cart_id = $_POST["idCarrito"];
         $product_units = $_POST["unidades"];
@@ -30,14 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product_unit"])
     }
 }
 
-// Verificar si se proporcionó un parámetro 'id' en la URL
 if (isset($_SESSION["idUsuario"])) {
-    // Este parametro lo obtengo desde admin_users    
     $user_id = $_SESSION["idUsuario"];
     $cart_data = load_cart_data($user_id);
 } else {
-    // Si no se proporciona 'id', puedes mostrar un mensaje de error o redirigir a otra página
-    // Por ejemplo, redirige a la página de administración
     header("Location: index.php");
     exit(); // Asegura que el código se detenga después de redirigir
 }
@@ -117,7 +111,7 @@ ob_end_flush();
     } else {
     ?>
         <div>
-            <p>No hay productos en el carrito</p>
+            <p class="message error">No hay productos en el carrito</p>
         </div>
 
     <?php

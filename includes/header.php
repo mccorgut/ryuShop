@@ -18,10 +18,8 @@ session_start();
 </head>
 
 <body>
-
     <div class="container">
         <header class="header">
-            <!-- El logo una barra de busqueda y el login irian aqui -->
             <div class="logo">
                 <a href="./index.php">
                     <i class="fa-solid fa-dragon"></i> Ryu Shop</a>

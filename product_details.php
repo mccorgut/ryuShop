@@ -4,7 +4,7 @@ ob_start();
 include "./includes/header.php";
 require_once "./config/db_operations.php";
 
-// Definir una variable para el mensaje de error
+// Variable para el mensaje de error
 $error_message = false;
 
 $product_id = $_GET["productId"];
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product"])) {
     }
 }
 
-// Verificar si hay un mensaje de error almacenado en la variable de sesión
+// Comprobar si hay un mensaje de error almacenado en la variable de sesión
 if (isset($_SESSION["error_message"]) && $_SESSION["error_message"] == true) {
     $error_message = true;
     // Elimina el mensaje de error de la variable de sesión para que no se muestre nuevamente después de la recarga de la página

@@ -415,7 +415,7 @@ function modify_product($product_name, $description, $product_price, $image, $st
 function delete_product($product_id)
 {
     $connection = obtain_connection();
-    // Preparar la consulta SQL para eliminar el producto
+
     $sql = "DELETE FROM Productos WHERE idProducto = :idProducto";
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(':idProducto', $product_id);
@@ -424,12 +424,10 @@ function delete_product($product_id)
 
 
 // Funciones para el carrito
-
 function insert_product_cart($product_id, $user_id, $product_name, $product_price, $product_units)
 {
     $connection = obtain_connection();
 
-    // Preparar la consulta SQL
     $sql = "INSERT INTO Carritos (idProducto, idUsuario, nombreProd, precioProd, unidades) VALUES (:idProducto, :idUsuario, :nombreProd, :precioProd, :unidades)";
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idProducto", $product_id);
@@ -539,7 +537,7 @@ function create_order($user_id)
 
     try {
         $connection->beginTransaction();
-        $date = date("Y-m-d H:i:s", time());
+        $date = date("Y-m-d", time());
         $sql = "INSERT INTO Pedidos (fecha, enviado, idUsuario) VALUES (:fecha, 0, :idUsuario)";
 
         $stmt = $connection->prepare($sql);
@@ -595,8 +593,46 @@ function create_order($user_id)
     }
 }
 
-
 function load_last_order_data($user_id)
+{
+    $connection = obtain_connection();
+
+    $sql = "SELECT PedidosProductos.*, Pedidos.fecha, Pedidos.enviado
+            FROM PedidosProductos  
+            JOIN Pedidos ON PedidosProductos.idPedido = Pedidos.idPedido
+            WHERE Pedidos.idUsuario = :idUsuario
+            ORDER BY Pedidos.fecha DESC";
+
+    $stmt = $connection->prepare($sql);
+    $stmt->bindParam(":idUsuario", $user_id);
+    $stmt->execute();
+
+    $last_order_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!$last_order_data) {
+        return false;
+    }
+
+    // Get data of the last order
+    $last_order = $last_order_data[0];
+    $last_order_date = $last_order['fecha'];
+
+    // Filter last order data to get products ordered on the same day
+    // Esto es como https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter de JS
+    $products_same_day = array_filter($last_order_data, function ($order) use ($last_order_date) {
+        return $order['fecha'] == $last_order_date;
+    });
+
+    // Calculate total price for the last order
+    $total_price = 0;
+    foreach ($products_same_day as $product) {
+        $total_price += $product['precioProd'] * $product['unidades'];
+    }
+
+    return array("products_same_day" => $products_same_day, "precioTotal" => $total_price);
+}
+
+/*function load_last_order_data($user_id)
 {
     $connection = obtain_connection();
 
@@ -639,4 +675,4 @@ function load_last_order_data($user_id)
     $cart_total = $stmt_total->fetch(PDO::FETCH_ASSOC);
 
     return array("products_same_day" => $products_same_day, "precioTotal" => $cart_total['precioTotal']);
-}
+}*/

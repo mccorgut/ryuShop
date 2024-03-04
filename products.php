@@ -6,7 +6,7 @@ require_once "./config/db_operations.php";
 <article class="main">
     <section class="products">
         <?php
-        if (isset($_GET["categorieId"])  && !isset($_GET["subCategorieId"])) {
+        if (isset($_GET["categorieId"]) && !isset($_GET["subCategorieId"])) {
             $categorie_id = $_GET["categorieId"];
             // Muestra toda la info de los productos que pertenecen a una misma categoria 
             $products = load_products_categories($categorie_id);
@@ -29,7 +29,6 @@ require_once "./config/db_operations.php";
             <?php
             }
         } else {
-
             ?>
             <?php
             if (isset($_GET["categorieId"]) && isset($_GET["subCategorieId"])) {
