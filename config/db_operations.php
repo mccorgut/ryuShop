@@ -24,7 +24,7 @@ function login_user($email, $password)
         // Compara la contraseña proporcionada con la almacenada usando password_verify
         if (password_verify($password, $storedPass)) {
             // Las contraseñas coinciden, usuario identificado
-            // Devuelve un array con el resultado de la autenticación y el nombre de usuario para utilizarlo como nombre que aparace una vez se ha iniciado sesion
+            // Devuelve un array con el resultado de la autentificación y el nombre de usuario para utilizarlo como nombre que aparace una vez se ha iniciado sesion
             return array("authenticated" => true, "nombreUsu" => $nombreUsu, "idUsuario" => $idUsuario);
         }
     }
@@ -44,15 +44,12 @@ function login_admin($email, $password)
     if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch();
         $storedPass = $row["pass"];
-        //   $email = $row["email"];
         $rol = $row["rol"]; // Recupera el valor del rol;
 
         if (password_verify($password, $storedPass)) {
-            // Devuelve un array con el resultado de la autenticación y el rol
             return array("authenticated" => true, "rol" => $rol);
         }
     }
-    // Devuelve un array con el resultado de la autenticación como falso y sin rol
     return array("authenticated" => false, "rol" => null);
 }
 
@@ -77,10 +74,8 @@ function insert_user($user_email, $user_name, $user_pass, $user_country, $user_c
 
     // TODO Hace lo mismo pero con transaciones por si falla el registro
     $stmt = $connection->prepare($sql);
-    //   $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
     $stmt->bindParam(":email", $user_email);
     $stmt->bindParam(":nombreUsu", $user_name);
-    // Enlace del hash de la contraseña (almacena el hash de la contraseña)
     $stmt->bindValue(":pass", $hash, PDO::PARAM_STR);
     $stmt->bindParam(":pais", $user_country);
     $stmt->bindParam(":cp", $user_cp);
@@ -97,21 +92,20 @@ function insert_user($user_email, $user_name, $user_pass, $user_country, $user_c
 function modify_user($user_email, $user_name, $user_pass, $user_country, $user_cp, $user_city, $user_direction, $user_id)
 {
     $connection = obtain_connection();
+
     // Opciones para el cifrado de la contraseña
     $options = [
         "cost" => 11,
     ];
 
-    // Hash de la contraseña usando bcrypt
     $hash = password_hash($user_pass, PASSWORD_BCRYPT, $options);
 
     $sql = "UPDATE Usuarios SET email = :email, nombreUsu = :nombreUsu, pass = :pass, pais = :pais, cp = :cp, ciudad = :ciudad, direccion = :direccion WHERE idUsuario = :idUsuario";
 
     $stmt = $connection->prepare($sql);
-    //   $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+
     $stmt->bindParam(":email", $user_email);
     $stmt->bindParam(":nombreUsu", $user_name);
-    // Enlace del hash de la contraseña (almacena el hash de la contraseña)
     $stmt->bindValue(":pass", $hash, PDO::PARAM_STR);
     $stmt->bindParam(":pais", $user_country);
     $stmt->bindParam(":cp", $user_cp);
@@ -119,7 +113,6 @@ function modify_user($user_email, $user_name, $user_pass, $user_country, $user_c
     $stmt->bindParam(":direccion", $user_direction);
     $stmt->bindParam(":idUsuario", $user_id);
 
-    // Ejecuta la consulta
     $stmt->execute();
 
     return $stmt->rowCount() > 0 ? true : false;
@@ -128,24 +121,22 @@ function modify_user($user_email, $user_name, $user_pass, $user_country, $user_c
 function delete_user($user_id)
 {
     $connection = obtain_connection();
+
     $sql = "DELETE FROM Usuarios WHERE idUsuario = :idUsuario";
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(':idUsuario', $user_id);
+
     $stmt->execute();
 }
 
 function load_all_users_data()
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Usuarios";
-
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->execute();
 
-    // Obtener el resultado
     $users = $stmt->fetchAll();
 
     if (!$users) {
@@ -158,17 +149,13 @@ function load_all_users_data()
 // funcion que cargue todos los usuarios dada su propia id
 function load_user_data($user_id)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Usuarios WHERE idUsuario = :idUsuario";
-
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idUsuario", $user_id);
     $stmt->execute();
 
-    // Obtener el resultado
     $user = $stmt->fetch();
 
     if (!$user) {
@@ -177,7 +164,6 @@ function load_user_data($user_id)
 
     return $user;
 }
-
 
 // Funciones para las categorias
 
@@ -189,11 +175,9 @@ function load_categories()
     // Consulta SQL para obtener todas las categorías
     $sql = "SELECT idCategoria, nombreCat FROM Categorias";
 
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->execute();
 
-    // Obtener el resultado
     $categories = $stmt->fetchAll();
 
     if (!$categories) {
@@ -437,11 +421,6 @@ function insert_product_cart($product_id, $user_id, $product_name, $product_pric
     $stmt->bindParam("unidades", $product_units);
 
     $stmt->execute();
-
-    // Obtener la ID del nuevo carrito
-    //$cart_id = $connection->lastInsertId();
-
-    //return $cart_id;
 }
 
 function load_cart_data($user_id)
