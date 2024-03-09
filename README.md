@@ -13,3 +13,11 @@ Proyecto final propuesto en la asignatura de desarrollo de aplicaciones en entor
 - Back-end
   - PHP
   - MySQL
+
+# Diagrama E/R
+
+![Image text](https://github.com/McCordoba/ryuShop/blob/main/config/blob/Esquema_entidad_relacion.drawio.png)
+
+# Diseño físico de la base de datos
+
+![Image text](https://github.com/McCordoba/ryuShop/blob/main/config/blob/Dise%C3%B1o_fisico_ProyectoRyuShop.png)
