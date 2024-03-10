@@ -5,10 +5,8 @@ include "./includes/header.php";
 require_once "./config/db_operations.php";
 
 // TODO Meter un mensaje de error
-
 $success_message = false;
 
-// Verificar si se ha enviado una solicitud de eliminación
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_user"])) {
     $user_id = $_POST["idUsuario"];
     $user_email = $_POST["email"];
@@ -21,18 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_user"])) {
 
     $user_modified = modify_user($user_email, $user_name, $user_pass, $user_country, $user_cp, $user_city, $user_direction, $user_id);
 
-    // Verificación del resultado de la modificación
+    // Comprueba el resultado de la modificación
     if ($user_modified) {
         $_SESSION["success_message"] = true; // Almacena el estado de éxito en una variable de sesión
         // Redirige a la misma página con el parámetro 'id' incluido en la URL
         header("Location: admin_users_form_modify.php?id=$user_id");
         exit();
     } else {
-        $error = true; // Si hay un error en la modificación
+        $error = true;
     }
 }
 
-// Verificar si se proporcionó un parámetro 'id' en la URL
+// Comprueba si se proporcionó un parámetro 'id' en la URL
 if (isset($_GET["id"])) {
     // Este parametro lo obtengo desde admin_users    
     $modify_user = $_GET["id"];

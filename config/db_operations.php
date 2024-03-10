@@ -408,7 +408,7 @@ function load_cart_data($user_id)
         return false;
     }
 
-    // Obtener el precio total de las unidades
+    // Obtiene el precio total de las unidades
     $sql_total = "SELECT ROUND(SUM(precioProd * unidades), 2) AS precioTotal FROM Carritos WHERE idUsuario = :idUsuario";
     $stmt_total = $connection->prepare($sql_total);
     $stmt_total->bindParam(":idUsuario", $user_id);
@@ -500,7 +500,8 @@ function create_order($user_id)
 
         $cart_data = load_cart_data($user_id);
         foreach ($cart_data["cart_data"] as $product) {
-            $sql = "INSERT INTO PedidosProductos (idPedido, idProducto, nombreProd, precioProd, unidades) VALUES (:idPedido, :idProducto, :nombreProd, :precioProd, :unidades)";
+            $sql = "INSERT INTO PedidosProductos (idPedido, idProducto, nombreProd, precioProd, unidades) 
+            VALUES (:idPedido, :idProducto, :nombreProd, :precioProd, :unidades)";
             $stmt = $connection->prepare($sql);
             $stmt->bindParam(":idPedido", $order, PDO::PARAM_INT);
             $stmt->bindParam(":idProducto", $product["idProducto"], PDO::PARAM_INT);
@@ -558,29 +559,24 @@ function load_last_order_data($user_id)
     $stmt->bindParam(":idUsuario", $user_id);
     $stmt->execute();
 
-    // Obtenemos todos los datos del último pedido del usuario
+    // Obtenemos todos los datos del ultimo pedido del usuario
     $last_order_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Verificamos si no hay datos de pedidos
-    if (!$last_order_data) {
-        return false;
-    }
-
-    // Obtenemos los datos del último pedido
+    // Obtenemos los datos del ultimo pedido
     $last_order = $last_order_data[0];
     $last_order_date = $last_order['fecha'];
 
-    // Filtramos los datos del último pedido para obtener los productos ordenados en el mismo día
+    // Filtra los datos del ultimo pedido para obtener los productos ordenados en el mismo dia
     $products_same_day = array_filter($last_order_data, function ($order) use ($last_order_date) {
         return $order["fecha"] == $last_order_date;
     });
 
-    // Calculamos el precio total del último pedido
+    // Calcula el precio total del ultimo pedido
     $total_price = 0;
     foreach ($products_same_day as $product) {
         $total_price += $product["precioProd"] * $product["unidades"];
     }
 
-    // Devolvemos un array con los productos del mismo día y el precio total
+    // Devuelve un array con los productos del mismo día y el precio total
     return array("products_same_day" => $products_same_day, "precioTotal" => $total_price);
 }

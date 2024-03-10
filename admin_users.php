@@ -7,8 +7,8 @@ include "./includes/header.php";
 // Verificar si se ha enviado una solicitud de eliminación
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
     // Verificar si se proporcionó un ID de producto válido
-    if (isset($_POST["id"])) {
-        $user_id = $_POST["id"];
+    if (isset($_POST["idUsuario"])) {
+        $user_id = $_POST["idUsuario"];
         delete_user($user_id);
     }
 }
@@ -69,7 +69,7 @@ $users = load_all_users_data();
                         </td>
                         <td>
                             <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                                <input type="hidden" name="id" value="<?= $user['idUsuario']; ?>">
+                                <input type="hidden" name="idUsuario" value="<?= $user['idUsuario']; ?>">
                                 <button class="btn-delete bx-border" type="submit" name="delete_user">
                                     <i class='bx bx-trash bx-sm'></i>
                                 </button>
