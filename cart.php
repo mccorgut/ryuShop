@@ -3,9 +3,8 @@ ob_start();
 include "./includes/header.php";
 require_once "./config/db_operations.php";
 
-// Verifica si se ha enviado una solicitud de eliminación
+// Comprueba si se ha enviado una solicitud de eliminación de un producto
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product"])) {
-    // Verifica si se proporcionó una ID de producto 
     if (isset($_POST["idCarrito"])) {
         $cart_id = $_POST["idCarrito"];
         delete_product_cart($cart_id);
@@ -28,12 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_product_unit"])
     }
 }
 
+// Comprueba si existe la sesion de usuario
 if (isset($_SESSION["idUsuario"])) {
     $user_id = $_SESSION["idUsuario"];
+    // Llama a la funcion para mostrar la info del carrito
     $cart_data = load_cart_data($user_id);
 } else {
     header("Location: index.php");
-    exit(); // Asegura que el código se detenga después de redirigir
+    exit();
 }
 
 ob_end_flush();

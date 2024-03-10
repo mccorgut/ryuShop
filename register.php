@@ -2,11 +2,9 @@
 ob_start();
 require_once "./config/db_operations.php";
 
-// Define una variable para indicar si ha ocurrido un error
 $error_message = false;
 $success_message = false;
 
-// TODO no existe nombreUsu en la BD
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $nombreUsu = $_POST["nombreUsu"];
@@ -19,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Llamada a la función para insertar el nuevo usuario
     $idUsuario = insert_user($email, $nombreUsu, $pass, $pais, $cp, $ciudad, $direccion);
 
-    // Verifica si la inserción fue exitosa
+    // Comprueba si la inserción tuvo exito
     if ($idUsuario == false) {
         // Si no se pudo insertar el usuario, establece la variable de error a true
         $error_message = true;

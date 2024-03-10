@@ -57,7 +57,6 @@ function login_admin($email, $password)
 // Función para insertar un nuevo usuario en la tabla Usuarios
 function insert_user($user_email, $user_name, $user_pass, $user_country, $user_cp, $user_city, $user_direction)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     // Opciones para el cifrado de la contraseña
@@ -68,11 +67,9 @@ function insert_user($user_email, $user_name, $user_pass, $user_country, $user_c
     // Hash de la contraseña usando bcrypt
     $hash = password_hash($user_pass, PASSWORD_BCRYPT, $options);
 
-    // Preparar la consulta para insertar el nuevo usuario
+    // Consulta para insertar el nuevo usuario
     $sql = "INSERT INTO Usuarios (email, nombreUsu, pass, pais, CP, ciudad, direccion) 
     VALUES (:email, :nombreUsu, :pass, :pais, :cp, :ciudad, :direccion)";
-
-    // TODO Hace lo mismo pero con transaciones por si falla el registro
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":email", $user_email);
     $stmt->bindParam(":nombreUsu", $user_name);
@@ -81,8 +78,6 @@ function insert_user($user_email, $user_name, $user_pass, $user_country, $user_c
     $stmt->bindParam(":cp", $user_cp);
     $stmt->bindParam(":ciudad", $user_city);
     $stmt->bindParam(":direccion", $user_direction);
-
-    // Ejecuta la consulta
     $stmt->execute();
 
     // Esto lo hago para mostrar los mensajes de error
@@ -101,9 +96,7 @@ function modify_user($user_email, $user_name, $user_pass, $user_country, $user_c
     $hash = password_hash($user_pass, PASSWORD_BCRYPT, $options);
 
     $sql = "UPDATE Usuarios SET email = :email, nombreUsu = :nombreUsu, pass = :pass, pais = :pais, cp = :cp, ciudad = :ciudad, direccion = :direccion WHERE idUsuario = :idUsuario";
-
     $stmt = $connection->prepare($sql);
-
     $stmt->bindParam(":email", $user_email);
     $stmt->bindParam(":nombreUsu", $user_name);
     $stmt->bindValue(":pass", $hash, PDO::PARAM_STR);
@@ -112,7 +105,6 @@ function modify_user($user_email, $user_name, $user_pass, $user_country, $user_c
     $stmt->bindParam(":ciudad", $user_city);
     $stmt->bindParam(":direccion", $user_direction);
     $stmt->bindParam(":idUsuario", $user_id);
-
     $stmt->execute();
 
     return $stmt->rowCount() > 0 ? true : false;
@@ -136,7 +128,6 @@ function load_all_users_data()
     $sql = "SELECT * FROM Usuarios";
     $stmt = $connection->prepare($sql);
     $stmt->execute();
-
     $users = $stmt->fetchAll();
 
     if (!$users) {
@@ -155,7 +146,6 @@ function load_user_data($user_id)
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idUsuario", $user_id);
     $stmt->execute();
-
     $user = $stmt->fetch();
 
     if (!$user) {
@@ -169,12 +159,10 @@ function load_user_data($user_id)
 
 function load_categories()
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     // Consulta SQL para obtener todas las categorías
     $sql = "SELECT idCategoria, nombreCat FROM Categorias";
-
     $stmt = $connection->prepare($sql);
     $stmt->execute();
 
@@ -193,7 +181,6 @@ function load_sub_categories($cat_id)
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM SubCategorias WHERE idCategoria = :idCategoria";
-
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idCategoria", $cat_id);
     $stmt->execute();
@@ -211,17 +198,13 @@ function load_sub_categories($cat_id)
 
 function load_products_categories($cat_id)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Productos WHERE idCategoria = :idCategoria";
-
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idCategoria", $cat_id);
     $stmt->execute();
 
-    // Obtener el resultado
     $productsCat = $stmt->fetchAll();
 
     if (!$productsCat) {
@@ -233,18 +216,14 @@ function load_products_categories($cat_id)
 
 function load_products_sub_categories($cat_id, $sub_cat_id)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Productos WHERE idCategoria = :idCategoria AND idSubCategoria = :idSubCategoria";
-
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idCategoria", $cat_id);
     $stmt->bindParam(":idSubCategoria", $sub_cat_id);
     $stmt->execute();
 
-    // Obtener el resultado
     $products_sub_cat = $stmt->fetchAll();
 
     if (!$products_sub_cat) {
@@ -259,11 +238,9 @@ function load_all_products_data()
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Productos";
-
     $stmt = $connection->prepare($sql);
     $stmt->execute();
 
-    // Obtener el resultado
     $products = $stmt->fetchAll();
 
     if (!$products) {
@@ -276,17 +253,13 @@ function load_all_products_data()
 // funcion que cargue todos los productos dada su propia id
 function load_product_data($product_id)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Productos WHERE idProducto = :idProducto";
-
-    // Preparar la consulta
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idProducto", $product_id);
     $stmt->execute();
 
-    // Obtener el resultado
     $products = $stmt->fetch();
 
     if (!$products) {
@@ -298,11 +271,9 @@ function load_product_data($product_id)
 
 function load_product_details($product_id)
 {
-    // Conexión a la base de datos
     $connection = obtain_connection();
 
     $sql = "SELECT * FROM Detalles WHERE idProducto = :idProducto";
-
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idProducto", $product_id);
     $stmt->execute();
@@ -524,7 +495,7 @@ function create_order($user_id)
         $stmt->bindParam(":idUsuario", $user_id, PDO::PARAM_INT);
         $stmt->execute();
 
-        // Obtener el ID del nuevo pedido
+        // Obtiene la ID del nuevo pedido
         $order = $connection->lastInsertId();
 
         $cart_data = load_cart_data($user_id);
@@ -540,6 +511,7 @@ function create_order($user_id)
 
             // Atualiza el stock en la tabla Productos
             $product_stock = load_product_data($product["idProducto"]);
+
             // Resta el stock
             if ($product_stock["stock"] > 0) {
                 $new_stock = $product_stock["stock"] - $product["unidades"];
@@ -576,82 +548,39 @@ function load_last_order_data($user_id)
 {
     $connection = obtain_connection();
 
+    // Consulta para obtener los datos del último pedido del usuario
     $sql = "SELECT PedidosProductos.*, Pedidos.fecha, Pedidos.enviado
             FROM PedidosProductos  
             JOIN Pedidos ON PedidosProductos.idPedido = Pedidos.idPedido
             WHERE Pedidos.idUsuario = :idUsuario
             ORDER BY Pedidos.fecha DESC";
-
     $stmt = $connection->prepare($sql);
     $stmt->bindParam(":idUsuario", $user_id);
     $stmt->execute();
 
+    // Obtenemos todos los datos del último pedido del usuario
     $last_order_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Verificamos si no hay datos de pedidos
     if (!$last_order_data) {
         return false;
     }
 
-    // Get data of the last order
+    // Obtenemos los datos del último pedido
     $last_order = $last_order_data[0];
     $last_order_date = $last_order['fecha'];
 
-    // Filter last order data to get products ordered on the same day
-    // Esto es como https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter de JS
+    // Filtramos los datos del último pedido para obtener los productos ordenados en el mismo día
     $products_same_day = array_filter($last_order_data, function ($order) use ($last_order_date) {
-        return $order['fecha'] == $last_order_date;
+        return $order["fecha"] == $last_order_date;
     });
 
-    // Calculate total price for the last order
+    // Calculamos el precio total del último pedido
     $total_price = 0;
     foreach ($products_same_day as $product) {
-        $total_price += $product['precioProd'] * $product['unidades'];
+        $total_price += $product["precioProd"] * $product["unidades"];
     }
 
+    // Devolvemos un array con los productos del mismo día y el precio total
     return array("products_same_day" => $products_same_day, "precioTotal" => $total_price);
 }
-
-/*function load_last_order_data($user_id)
-{
-    $connection = obtain_connection();
-
-    // Fetch data for the last order
-    $sql = "SELECT PedidosProductos.*, Pedidos.fecha, Pedidos.enviado
-            FROM PedidosProductos  
-            JOIN Pedidos ON PedidosProductos.idPedido = Pedidos.idPedido
-            WHERE Pedidos.idUsuario = :idUsuario
-            ORDER BY Pedidos.fecha DESC";
-
-    $stmt = $connection->prepare($sql);
-    $stmt->bindParam(":idUsuario", $user_id);
-    $stmt->execute();
-
-    $last_order_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (!$last_order_data) {
-        return false;
-    }
-
-    // Get data of the last order
-    $last_order = $last_order_data[0];
-    $last_order_date = $last_order['fecha'];
-
-    // Filter last order data to get products ordered on the same day
-    // Esto es como https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter de JS
-    $products_same_day = array_filter($last_order_data, function ($order) use ($last_order_date) {
-        return $order['fecha'] == $last_order_date;
-    });
-
-    // Calculate total price for the last order
-    $last_order_id = $last_order['idPedido'];
-    $sql_total = "SELECT ROUND(SUM(precioProd * unidades), 2) AS precioTotal 
-                  FROM PedidosProductos 
-                  WHERE idPedido = :last_order_id";
-
-    $stmt_total = $connection->prepare($sql_total);
-    $stmt_total->bindParam(":last_order_id", $last_order_id);
-    $stmt_total->execute();
-    $cart_total = $stmt_total->fetch(PDO::FETCH_ASSOC);
-
-    return array("products_same_day" => $products_same_day, "precioTotal" => $cart_total['precioTotal']);
-}*/

@@ -1,5 +1,4 @@
 <?php
-// Start output buffering
 ob_start();
 include "./includes/header.php";
 require_once "./config/db_operations.php";
@@ -12,7 +11,7 @@ $product = load_product_data($product_id);
 $product_details = load_product_details($product_id);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product"])) {
-    // Verificar si el usuario ha iniciado sesión
+    // Comprueba si el usuario ha iniciado sesión
     session_start();
     if (!isset($_SESSION['idUsuario'])) {
         $product_id = $_POST["productId"];
@@ -28,16 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_product"])) {
 
         $user_id = $_SESSION["idUsuario"];
 
-        // Insertar el producto en el carrito
+        // Inserta el producto en el carrito
         insert_product_cart($product_id, $user_id, $product_name, $product_price, $product_units);
 
-        // Redirigir a la página del carrito
+        // Redirige a la página del carrito
         header("Location: cart.php");
-        exit; // Terminar el script después de redirigir
+        exit; // Termina el script después de redirigir
     }
 }
 
-// Comprobar si hay un mensaje de error almacenado en la variable de sesión
+// Comprueba si hay un mensaje de error almacenado en la variable de sesión
 if (isset($_SESSION["error_message"]) && $_SESSION["error_message"] == true) {
     $error_message = true;
     // Elimina el mensaje de error de la variable de sesión para que no se muestre nuevamente después de la recarga de la página
@@ -78,7 +77,15 @@ ob_end_flush();
 
         <h2><?= $product["nombreProd"]; ?></h2>
         <h4><?= $product["precioProd"]; ?>€</h4>
-        <p>Unidades en stock <span class="stock"><?= $product["stock"]; ?></span></p>
+        <? if ($product["stock"] > 0) { ?>
+            <p>Unidades en stock <span class="stock"><?= $product["stock"]; ?></span></p>
+        <? } else {
+        ?>
+            <p>Unidades en stock <span class="stock">SIN STOCK</span></p>
+        <?
+        } ?>
+
+        <!-- TODO Hacer que no se pueda añadir un productos si no quedan unidades del mismo -->
 
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <input type="hidden" name="productId" value="<?= $product["idProducto"]; ?>">
