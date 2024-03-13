@@ -21,7 +21,7 @@
         </div>
 
         <div class="footerList footerSocial">
-            <h4>SIGENOS</h4>
+            <h4>SIGUENOS</h4>
             <ul class="socialMedia">
                 <li>
                     <a href="#"><i class='bx bxl-twitter'></i></a>

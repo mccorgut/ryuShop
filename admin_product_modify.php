@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = $_POST["precio"];
     $stock = $_POST["stock"];
 
-    $directorio_subida = "public/img/productsIMG/";
+    $directorio_subida = "./public/img/productsIMG/";
     $max_file_size = 5120000; // 5 megabytes
     $extensiones_validas = array("jpg", "png");
 

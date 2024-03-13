@@ -333,6 +333,7 @@ function modify_product($product_name, $description, $product_price, $image, $st
             $stmt->bindParam(":imgProducto", $image);
             $stmt->bindParam(":stock", $stock);
             $stmt->bindParam(":idProducto", $product_id);
+            $stmt->execute();
         } else {
             // Si no se subió una nueva imagen, mantener la imagen original y actualizar los demás campos
             $sql = "SELECT imgProducto FROM Productos WHERE idProducto = :idProducto";
@@ -350,15 +351,8 @@ function modify_product($product_name, $description, $product_price, $image, $st
             $stmt->bindParam(":imgProducto", $nombreImagenOriginal);
             $stmt->bindParam(":stock", $stock);
             $stmt->bindParam(":idProducto", $product_id);
+            $stmt->execute();
         }
-
-        $sql = "INSERT INTO Detalles (idProducto)
-        VALUES (:idProducto)";
-        $stmt = $connection->prepare($sql);
-        $stmt->bindParam(":idProducto", $product_id);
-
-        $stmt->execute();
-
         return $stmt->rowCount() > 0 ? true : false;
     } catch (PDOException $e) {
         // Manejo de errores
@@ -371,11 +365,26 @@ function delete_product($product_id)
 {
     $connection = obtain_connection();
 
-    $sql = "DELETE FROM Productos WHERE idProducto = :idProducto";
-    $stmt = $connection->prepare($sql);
-    $stmt->bindParam(':idProducto', $product_id);
-    $stmt->execute();
+    try {
+        $connection->beginTransaction();
+
+        $sql = "DELETE FROM Detalles WHERE idProducto = :idProducto";
+        $stmt = $connection->prepare($sql);
+        $stmt->bindParam(':idProducto', $product_id);
+        $stmt->execute();
+
+        $sql = "DELETE FROM Productos WHERE idProducto = :idProducto";
+        $stmt = $connection->prepare($sql);
+        $stmt->bindParam(':idProducto', $product_id);
+        $stmt->execute();
+
+        $connection->commit();
+    } catch (Exception $e) {
+        $connection->rollback();
+        throw $e;
+    }
 }
+
 
 
 // Funciones para el carrito
