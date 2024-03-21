@@ -44,11 +44,6 @@ ob_end_flush();
             <label for="pass">Contraseña</label>
             <input type="password" name="pass" id="pass" placeholder="Introduce tu contraseña" required>
 
-            <!-- TODO Comprobar que ambas contraseñas coincidan 
-            comprobar con el evento onkeyup
-            <label for="pass2">Repite la contraseña</label>
-            <input type="password" id="pass2" placeholder="Repite tu contraseña" required>-->
-
             <label for="pais">País</label>
             <input type="text" name="pais" id="pais">
 

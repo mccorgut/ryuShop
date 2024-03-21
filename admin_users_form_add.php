@@ -57,11 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="direccion">Dirección</label>
             <textarea name="direccion" id="direccion" rows="3"></textarea>
 
-            <!-- Mostrar mensaje de error si $err es true -->
-            <?php if ($err) : ?>
-                <p class="message error">Error al registrar el usuario. Por favor, inténtalo de nuevo.</p>
-            <?php endif; ?>
-
             <button class="btn btn-register" type="submit">Añadir Usuario</button>
         </form>
         <!-- Mostrar mensaje de éxito si $success_message está definido -->
@@ -70,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <?php if ($error_message) : ?>
-            <p class="message error">Problema con el registro de usuario!</p>
+            <p class="message error">Error al registrar el usuario. Por favor, inténtalo de nuevo!</p>
         <?php endif; ?>
     </div>
 

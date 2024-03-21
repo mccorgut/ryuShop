@@ -108,14 +108,14 @@ ob_end_flush();
                 </tr>
             </table>
         </div>
-    <?php
+    <?
     } else {
     ?>
         <div>
             <p class="message error">No hay productos en el carrito</p>
         </div>
 
-    <?php
+    <?
     }
     ?>
 </article>

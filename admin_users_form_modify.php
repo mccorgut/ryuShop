@@ -41,7 +41,7 @@ if (isset($_GET["id"])) {
     exit(); // Asegura que el código se detenga después de redirigir
 }
 
-// Verificar si hay un mensaje de éxito almacenado en la variable de sesión
+// Comprueba si hay un mensaje de éxito almacenado en la variable de sesión
 if (isset($_SESSION["success_message"]) && $_SESSION["success_message"] == true) {
     $success_message = true;
     // Elimina el mensaje de éxito de la variable de sesión para que no se muestre nuevamente después de la recarga de la página

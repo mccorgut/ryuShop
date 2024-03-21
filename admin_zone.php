@@ -6,11 +6,11 @@ include "includes/header.php";
 <article class="main">
     <section class="admin-container">
         <?php
-        // Verifica si el formulario ha sido enviado y si las variables de sesión están configuradas
+        // Comprueba si el formulario ha sido enviado y si las variables de sesión están configuradas
         if (isset($_SESSION["admin"]) && isset($_SESSION["user_role"])) {
             //  var_dump($_SESSION["admin"]);
             // var_dump($_SESSION["user_role"]);
-            // Se ha iniciado sesión, muestra las opciones del administrador según el rol
+            // Si ha iniciado sesión, muestra las opciones del administrador según el rol
             if ($_SESSION['user_role'] === 'super_admin') {
         ?>
                 <div class="card card-admin">
@@ -26,17 +26,15 @@ include "includes/header.php";
                 <img src="public/img/resources/package-solid-240.png" alt="Productos">
                 <a href="admin_products.php" class="btn-admin">Acceder</a>
             </div>
-        <?php
+        <?
         } else {
             // Si las variables de sesión no están configuradas, muestra un mensaje de acceso denegado
         ?>
-
             <div class="card card-admin">
                 <h4>Acceso denegado</h4>
                 <img src="public/img/resources/block-regular-240.png" alt="error">
             </div>
-
-        <?php
+        <?
         }
         ?>
 

@@ -8,7 +8,7 @@ if (isset($_SESSION["idUsuario"])) {
     $user_id = $_SESSION["idUsuario"];
     $last_order_data = load_last_order_data($user_id);
 
-    echo "<pre>" . print_r($last_order_data, 1) . "</pre>";
+    // echo "<pre>" . print_r($last_order_data, 1) . "</pre>";
 }
 
 ?>
@@ -24,9 +24,7 @@ if (isset($_SESSION["idUsuario"])) {
                     <th>Fecha</th>
                     <th>Enviado</th>
                 </tr>
-
                 <?php
-                // TODO Hacer que sea el ultimo pedido no solo los productos encargados en mismo dia (mirar si eso es muy dificil)
                 foreach ($last_order_data["products_same_day"] as $product) {
                 ?>
                     <tr>

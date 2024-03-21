@@ -84,9 +84,6 @@ ob_end_flush();
             <p>Unidades en stock <span class="stock">SIN STOCK</span></p>
         <?
         } ?>
-
-        <!-- TODO Hacer que no se pueda añadir un productos si no quedan unidades del mismo -->
-
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <input type="hidden" name="productId" value="<?= $product["idProducto"]; ?>">
             <input type="hidden" name="productName" value="<?= $product["nombreProd"]; ?>">
@@ -106,7 +103,7 @@ ob_end_flush();
             <button class="btn add-cart" type="submit" name="add_product">Añadir al carrito<i class='bx bxs-cart-add bx-sm'></i></button>
         </form>
 
-        <!-- Mostrar mensaje de error si $err es true -->
+        <!-- Mostrar mensaje de error si $error_message es true -->
         <?php if ($error_message) : ?>
             <p class="message error">No puedes añadir un producto al carrito a no ser que inicies sesion</p>
         <?php endif; ?>

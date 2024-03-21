@@ -4,9 +4,9 @@ include "./includes/header.php";
 
 // TODO Añadir confirmacion antes de poder eliminar al usuario 
 
-// Verificar si se ha enviado una solicitud de eliminación
+// Comprueba si se ha enviado una solicitud de eliminación
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
-    // Verificar si se proporcionó un ID de producto válido
+    // Comprueba si se proporcionó un ID de producto válido
     if (isset($_POST["idUsuario"])) {
         $user_id = $_POST["idUsuario"];
         delete_user($user_id);
